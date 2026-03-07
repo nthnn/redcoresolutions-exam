@@ -19,7 +19,7 @@ log "Installing PHP dependencies..."
 if command -v composer &> /dev/null; then
     composer install --no-dev --optimize-autoloader
 else
-    php "$ROOT_DIR/composer.phar" install --no-dev --optimize-autoloader
+    php "../composer.phar" install --no-dev --optimize-autoloader
 fi
 
 log "Generating application key..."
