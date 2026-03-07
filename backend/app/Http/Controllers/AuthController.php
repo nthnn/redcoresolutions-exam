@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\Role;
 
 class AuthController extends Controller
 {
@@ -29,10 +31,14 @@ class AuthController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        $user = \App\Models\User::create([
+        $isFirstUser = User::count() === 0;
+        $adminRole = $isFirstUser ? Role::where('name', 'admin')->first() : null;
+
+        $user = User::create([
             'full_name' => $validated['full_name'],
             'email' => $validated['email'],
             'password' => \Illuminate\Support\Facades\Hash::make($validated['password']),
+            'role_id' => $adminRole ? $adminRole->id : null,
         ]);
 
         $token = auth('api')->login($user);

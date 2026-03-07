@@ -30,6 +30,9 @@ touch database/database.sqlite
 log "Running database migrations..."
 php artisan migrate --force
 
+log "Seeding default roles..."
+php artisan db:seed --force
+
 log "Installing backend frontend dependencies (Vite)..."
 npm install
 
