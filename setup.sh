@@ -16,11 +16,7 @@ if [ ! -f .env ]; then
 fi
 
 log "Installing PHP dependencies..."
-if command -v composer &> /dev/null; then
-    composer install --no-dev --optimize-autoloader
-else
-    php "./composer.phar" install --no-dev --optimize-autoloader
-fi
+php "../composer.phar" install --no-dev --optimize-autoloader
 
 log "Generating application key..."
 php artisan key:generate
